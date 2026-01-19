@@ -20,3 +20,4 @@ Vision Transformers (ViT) apply the same self-attention mechanisms to patches of
 
 ## Audio Processing and Beyond
 From speech-to-text to music generation, transformers are proving to be the universal architecture for sequential data.
+
