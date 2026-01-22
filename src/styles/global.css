@@ -51,6 +51,7 @@
   h5,
   h6 {
     font-family: var(--font-display);
+    scroll-margin-top: 5rem;
     @apply uppercase tracking-tight;
   }
 

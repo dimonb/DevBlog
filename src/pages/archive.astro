@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ArchiveCard from "../components/ArchiveCard.astro";
+import { calculateReadingTime } from "../utils/readingTime";
 
 const allPosts = await getCollection("posts");
 const topics = [...new Set(allPosts.map((post) => post.data.category))];
@@ -29,14 +30,16 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
     <main class="flex-1 flex justify-center py-8 px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col w-full max-w-[1200px] gap-8">
             <!-- Title Section -->
-            <div class="flex flex-col gap-4 border-b border-[#224249] pb-8">
+            <div
+                class="flex flex-col gap-4 border-b border-slate-200 dark:border-[#224249] pb-8"
+            >
                 <h1
-                    class="text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]"
+                    class="text-slate-900 dark:text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]"
                 >
                     Article Archives
                 </h1>
                 <p
-                    class="text-text-muted text-lg font-normal leading-normal max-w-2xl"
+                    class="text-slate-600 dark:text-[#90c1cb] text-lg font-normal leading-normal max-w-2xl"
                 >
                     Explore the latest insights in programming, cybersecurity,
                     data science, and AI. Stay ahead of the curve.
@@ -49,18 +52,21 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
             >
                 <div class="flex gap-2 flex-wrap" id="topic-filters">
                     <button
-                        class="topic-filter flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-background-input hover:bg-[#2a4f57] border border-transparent hover:border-primary/30 px-4 transition-all group active"
+                        class="topic-filter flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-background-input hover:bg-slate-100 dark:hover:bg-[#2a4f57] border border-slate-200 dark:border-transparent hover:border-primary/50 dark:hover:border-primary/30 px-4 transition-all group active"
                         data-topic="all"
                     >
-                        <span class="text-sm">All Topics</span>
+                        <span
+                            class="text-slate-700 dark:text-white text-sm font-medium"
+                            >All Topics</span
+                        >
                     </button>
                     {
                         topics.map((topic) => (
                             <button
-                                class="topic-filter flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-background-input hover:bg-[#2a4f57] border border-transparent hover:border-primary/30 px-4 transition-all group"
+                                class="topic-filter flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white dark:bg-background-input hover:bg-slate-100 dark:hover:bg-[#2a4f57] border border-slate-200 dark:border-transparent hover:border-primary/50 dark:hover:border-primary/30 px-4 transition-all group"
                                 data-topic={topic}
                             >
-                                <span class="text-white text-sm font-medium">
+                                <span class="text-slate-700 dark:text-white text-sm font-medium">
                                     {topic}
                                 </span>
                             </button>
@@ -68,9 +74,11 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
                     }
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="text-text-muted text-sm">Sort by:</span>
+                    <span class="text-slate-500 dark:text-[#90c1cb] text-sm"
+                        >Sort by:</span
+                    >
                     <button
-                        class="flex items-center gap-1 text-white text-sm font-medium hover:text-primary"
+                        class="flex items-center gap-1 text-slate-700 dark:text-white text-sm font-medium hover:text-primary"
                         id="sort-toggle"
                     >
                         <span id="sort-label">Newest</span>
@@ -89,7 +97,7 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
                 {
                     allPosts.map((post) => (
                         <div
-                            class="archive-item"
+                            class="archive-item h-full"
                             data-topic={post.data.category}
                             data-date={post.data.pubDate.getTime()}
                             data-tags={
@@ -102,7 +110,10 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
                                 image={post.data.image}
                                 category={post.data.category}
                                 date={formatDate(post.data.pubDate)}
-                                readTime={post.data.readTime}
+                                readTime={
+                                    post.data.readTime ||
+                                    calculateReadingTime(post.body)
+                                }
                                 slug={post.slug}
                             />
                         </div>
@@ -112,12 +123,12 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
 
             <!-- Pagination Section -->
             <div
-                class="flex flex-col items-center justify-center gap-6 pt-12 pb-8 border-t border-[#224249] mt-8"
+                class="flex flex-col items-center justify-center gap-6 pt-12 pb-8 border-t border-slate-200 dark:border-[#224249] mt-8"
             >
                 <div class="flex items-center gap-2" id="pagination-controls">
                     <button
                         id="prev-page"
-                        class="flex items-center justify-center w-10 h-10 rounded-lg bg-background-input border border-primary/20 text-white hover:bg-primary/10 hover:border-primary transition-all disabled:opacity-30 disabled:cursor-not-allowed group"
+                        class="flex items-center justify-center w-10 h-10 rounded-lg bg-white dark:bg-background-input border border-slate-200 dark:border-primary/20 text-slate-600 dark:text-white hover:bg-primary/10 hover:border-primary transition-all disabled:opacity-30 disabled:cursor-not-allowed group"
                         aria-label="Previous page"
                     >
                         <span
@@ -132,7 +143,7 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
 
                     <button
                         id="next-page"
-                        class="flex items-center justify-center w-10 h-10 rounded-lg bg-background-input border border-primary/20 text-white hover:bg-primary/10 hover:border-primary transition-all disabled:opacity-30 disabled:cursor-not-allowed group"
+                        class="flex items-center justify-center w-10 h-10 rounded-lg bg-white dark:bg-background-input border border-slate-200 dark:border-primary/20 text-slate-600 dark:text-white hover:bg-primary/10 hover:border-primary transition-all disabled:opacity-30 disabled:cursor-not-allowed group"
                         aria-label="Next page"
                     >
                         <span
@@ -142,7 +153,7 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
                     </button>
                 </div>
                 <div
-                    class="text-xs font-medium text-text-muted uppercase tracking-widest"
+                    class="text-xs font-medium text-slate-500 dark:text-[#90c1cb] uppercase tracking-widest"
                     id="pagination-info"
                 >
                     Page 1 of 1
@@ -169,16 +180,37 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
     const pageNumbersContainer = document.getElementById("page-numbers");
     const paginationInfo = document.getElementById("pagination-info");
 
+    // Check for query parameters on load
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialTopic = urlParams.get("topic");
+    const initialTag = urlParams.get("tag");
+    const initialPage = parseInt(urlParams.get("page") || "1");
+
     let currentSort = "newest";
-    let currentTopic = "all";
-    let currentTag: string | null = null;
-    let currentPage = 1;
+    let currentTopic = initialTopic || "all";
+    let currentTag: string | null = initialTag;
+    let currentPage = initialPage;
     const itemsPerPage = 6;
 
     // Filtered items based on topic and tag
     let filteredItems: HTMLElement[] = Array.from(archiveItems);
 
-    const updatePagination = () => {
+    const updateUrl = () => {
+        const params = new URLSearchParams();
+        if (currentTopic && currentTopic !== "all")
+            params.set("topic", currentTopic);
+        if (currentTag) params.set("tag", currentTag);
+        if (currentPage > 1) params.set("page", currentPage.toString());
+
+        const newUrl = `${window.location.pathname}${params.toString() ? "?" + params.toString() : ""}`;
+        window.history.pushState(
+            { topic: currentTopic, tag: currentTag, page: currentPage },
+            "",
+            newUrl,
+        );
+    };
+
+    const updatePagination = (scrollToTop = false, animate = true) => {
         const totalPages = Math.ceil(filteredItems.length / itemsPerPage) || 1;
         if (currentPage > totalPages) currentPage = totalPages;
         if (currentPage < 1) currentPage = 1;
@@ -199,28 +231,30 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
                 btn.className = `w-10 h-10 rounded-lg border transition-all text-sm font-bold ${
                     i === currentPage
                         ? "bg-primary text-background-dark border-primary shadow-[0_0_15px_rgba(13,204,242,0.3)]"
-                        : "bg-background-input border-primary/20 text-white hover:bg-primary/10 hover:border-primary"
+                        : "bg-white dark:bg-background-input border-slate-200 dark:border-primary/20 text-slate-600 dark:text-white hover:bg-slate-100 dark:hover:bg-primary/10 hover:border-primary"
                 }`;
                 btn.textContent = i.toString();
                 btn.addEventListener("click", () => {
                     currentPage = i;
-                    renderCurrentPage();
+                    updatePagination(true, true);
+                    updateUrl();
                 });
                 pageNumbersContainer.appendChild(btn);
             }
         }
 
-        renderCurrentPage();
+        renderCurrentPage(scrollToTop, animate);
     };
 
-    const renderCurrentPage = () => {
+    const renderCurrentPage = (scrollToTop = false, animate = true) => {
         const start = (currentPage - 1) * itemsPerPage;
         const end = start + itemsPerPage;
 
-        // Fade effect
-        if (archiveGrid) archiveGrid.style.opacity = "0";
+        const updateDOM = () => {
+            if (scrollToTop) {
+                window.scrollTo(0, 0);
+            }
 
-        setTimeout(() => {
             archiveItems.forEach((item) => (item.style.display = "none"));
 
             filteredItems.forEach((item, index) => {
@@ -228,12 +262,28 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
                     item.style.display = "block";
                 }
             });
+        };
 
+        if (animate) {
+            // Fade effect
+            if (archiveGrid) archiveGrid.style.opacity = "0";
+            setTimeout(() => {
+                updateDOM();
+                if (archiveGrid) archiveGrid.style.opacity = "1";
+            }, 200);
+        } else {
+            // Instant update
+            updateDOM();
             if (archiveGrid) archiveGrid.style.opacity = "1";
-        }, 200);
+        }
     };
 
-    const applyFilter = (topic: string | null, tag: string | null = null) => {
+    const applyFilter = (
+        topic: string | null,
+        tag: string | null = null,
+        resetPage = true,
+        animate = true,
+    ) => {
         if (!topic) topic = "all";
         currentTopic = topic;
         currentTag = tag;
@@ -262,15 +312,18 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
             return matchesTopic;
         });
 
-        currentPage = 1;
-        updatePagination();
+        if (resetPage) {
+            currentPage = 1;
+        }
+        updatePagination(resetPage, animate);
     };
 
     // Event Listeners
     prevBtn?.addEventListener("click", () => {
         if (currentPage > 1) {
             currentPage--;
-            updatePagination();
+            updatePagination(true, true);
+            updateUrl();
         }
     });
 
@@ -278,28 +331,20 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
         const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
         if (currentPage < totalPages) {
             currentPage++;
-            updatePagination();
+            updatePagination(true, true);
+            updateUrl();
         }
     });
 
-    // Check for query parameters on load
-    const urlParams = new URLSearchParams(window.location.search);
-    const initialTopic = urlParams.get("topic");
-    const initialTag = urlParams.get("tag");
-    applyFilter(initialTopic, initialTag);
+    // Initial load
+    applyFilter(initialTopic, initialTag, false, false);
 
     // Topic Filtering Click Events
     topicButtons.forEach((button) => {
         button.addEventListener("click", () => {
             const topic = button.getAttribute("data-topic");
-            applyFilter(topic, currentTag);
-
-            let newUrl =
-                topic === "all" ? window.location.pathname : `?topic=${topic}`;
-            if (currentTag) {
-                newUrl += (topic === "all" ? "?" : "&") + `tag=${currentTag}`;
-            }
-            window.history.pushState({ topic, tag: currentTag }, "", newUrl);
+            applyFilter(topic, currentTag, true, true);
+            updateUrl();
         });
     });
 
@@ -318,7 +363,7 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
 
         // Update items in the DOM and re-filter
         sortedItems.forEach((item) => archiveGrid?.appendChild(item));
-        applyFilter(currentTopic, currentTag);
+        applyFilter(currentTopic, currentTag, false, true); // Keep page, animate sort
     });
 </script>
 

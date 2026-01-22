@@ -2,7 +2,7 @@
 interface Props {
     title: string;
     description: string;
-    image: string;
+    image?: string;
     category: string;
     author: string;
     authorImage?: string;
@@ -30,14 +30,21 @@ const url = `/posts/${slug}`;
 
 {
     featured ? (
-        <article class="group relative bg-card-light dark:bg-card-dark rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-white/5 mb-8">
+        <a
+            href={url}
+            class="group block relative bg-card-light dark:bg-card-dark rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-white/5 mb-8"
+        >
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 pointer-events-none" />
             <div class="aspect-w-16 aspect-h-9 h-96 w-full relative">
-                <img
-                    src={image}
-                    alt={title}
-                    class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
-                />
+                {image && image !== "/images/placeholder.jpg" ? (
+                    <img
+                        src={image}
+                        alt={title}
+                        class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
+                    />
+                ) : (
+                    <div class="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600" />
+                )}
             </div>
             <div class="absolute bottom-0 left-0 p-8 z-20 w-full">
                 <div class="flex items-center gap-3 mb-3">
@@ -51,12 +58,10 @@ const url = `/posts/${slug}`;
                         {readTime}
                     </span>
                 </div>
-                <a href={url}>
-                    <h3 class="text-3xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                        {title}
-                    </h3>
-                </a>
-                <p class="text-slate-300 mb-4 line-clamp-2 max-w-2xl">
+                <h3 class="text-3xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                    {title}
+                </h3>
+                <p class="text-slate-300 mb-4 line-clamp-2 max-w-2xl hover:text-white transition-colors">
                     {description}
                 </p>
                 <div class="flex items-center">
@@ -73,21 +78,30 @@ const url = `/posts/${slug}`;
                     </div>
                 </div>
             </div>
-        </article>
+        </a>
     ) : (
-        <article class="group flex flex-col h-full bg-card-light dark:bg-card-dark rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 dark:border-white/5 hover:border-primary/50">
-            <a href={url} class="h-48 overflow-hidden relative block">
+        <a
+            href={url}
+            class="group flex flex-col h-full bg-card-light dark:bg-card-dark rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 dark:border-white/5 hover:border-primary/50"
+        >
+            <div class="h-48 overflow-hidden relative block">
                 <div class="absolute top-4 left-4 z-10">
                     <span class="px-2 py-1 rounded-md bg-black/60 backdrop-blur-sm text-primary text-xs font-bold border border-primary/30">
                         {category}
                     </span>
                 </div>
-                <img
-                    src={image}
-                    alt={title}
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-            </a>
+                {image && image !== "/images/placeholder.jpg" ? (
+                    <img
+                        src={image}
+                        alt={title}
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                ) : (
+                    <div class="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600">
+                        <div class="absolute inset-0 bg-gradient-to-t from-background-card to-transparent opacity-60" />
+                    </div>
+                )}
+            </div>
             <div class="p-6 flex flex-col flex-grow">
                 <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-3">
                     <span class="material-icons text-[14px]">
@@ -98,12 +112,10 @@ const url = `/posts/${slug}`;
                     <span class="material-icons text-[14px]">timer</span>{" "}
                     {readTime}
                 </div>
-                <a href={url}>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary transition-colors leading-tight">
-                        {title}
-                    </h3>
-                </a>
-                <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3 flex-grow">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary transition-colors leading-tight">
+                    {title}
+                </h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3 flex-grow group-hover:text-slate-800 dark:group-hover:text-slate-200 transition-colors">
                     {description}
                 </p>
                 <div class="mt-auto pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
@@ -112,14 +124,11 @@ const url = `/posts/${slug}`;
                             By {author}
                         </span>
                     </div>
-                    <a
-                        href={url}
-                        class="material-icons text-primary text-sm group-hover:translate-x-1 transition-transform"
-                    >
+                    <span class="material-icons text-primary text-sm group-hover:translate-x-1 transition-transform">
                         arrow_forward
-                    </a>
+                    </span>
                 </div>
             </div>
-        </article>
+        </a>
     )
 }

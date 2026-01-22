@@ -6,6 +6,7 @@ import Footer from "../components/Footer.astro";
 import Sidebar from "../components/Sidebar.astro";
 import ArticleCard from "../components/ArticleCard.astro";
 import { getCollection } from "astro:content";
+import { calculateReadingTime } from "../utils/readingTime";
 
 const allPosts = await getCollection("posts");
 const featuredPost = allPosts.find((post) => post.data.featured);
@@ -58,7 +59,10 @@ const formatDate = (date: Date) => {
 							author={featuredPost.data.author}
 							authorImage={featuredPost.data.authorImage}
 							date={formatDate(featuredPost.data.pubDate)}
-							readTime={featuredPost.data.readTime}
+							readTime={
+								featuredPost.data.readTime ||
+								calculateReadingTime(featuredPost.body)
+							}
 							slug={featuredPost.slug}
 						/>
 					)
@@ -75,7 +79,7 @@ const formatDate = (date: Date) => {
 								category={post.data.category}
 								author={post.data.author}
 								date={formatDate(post.data.pubDate)}
-								readTime={post.data.readTime}
+								readTime={post.data.readTime || calculateReadingTime(post.body)}
 								slug={post.slug}
 							/>
 						))

@@ -5,6 +5,7 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PostSidebarLeft from "../../components/PostSidebarLeft.astro";
 import PostSidebarRight from "../../components/PostSidebarRight.astro";
+import { calculateReadingTime } from "../../utils/readingTime";
 
 export async function getStaticPaths() {
     const posts = await getCollection("posts");
@@ -78,7 +79,7 @@ const formattedRelatedPosts = finalRelatedPosts.map((p) => ({
         day: "2-digit",
         year: "numeric",
     }),
-    readTime: p.data.readTime,
+    readTime: p.data.readTime || calculateReadingTime(p.body),
     image: p.data.image,
     slug: p.slug,
 }));
@@ -151,7 +152,12 @@ const formatDate = (date: Date) => {
                                 >
                                     <span>{formatDate(post.data.pubDate)}</span>
                                     <span>•</span>
-                                    <span>{post.data.readTime}</span>
+                                    <span
+                                        >{
+                                            post.data.readTime ||
+                                                calculateReadingTime(post.body)
+                                        }</span
+                                    >
                                 </div>
                             </div>
                             <div class="ml-auto flex gap-2">
@@ -192,9 +198,12 @@ const formatDate = (date: Date) => {
                                 >
                                 {
                                     post.data.tags.map((tag) => (
-                                        <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-surface-dark text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-primary/20 hover:text-primary transition-colors cursor-default">
+                                        <a
+                                            href={`/archive?tag=${tag}`}
+                                            class="px-3 py-1 rounded-full bg-slate-100 dark:bg-surface-dark text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-primary/20 hover:text-primary transition-colors cursor-pointer"
+                                        >
                                             #{tag}
-                                        </span>
+                                        </a>
                                     ))
                                 }
                             </div>
