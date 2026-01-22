@@ -4,7 +4,7 @@ description: "Learn how to configure Zigbee lights to remember their previous br
 pubDate: 2024-11-09T15:33:16+02:00
 author: "DimonB"
 
-category: "Technology"
+category: "Zigbee & Networks"
 
 featured: false
 tags:

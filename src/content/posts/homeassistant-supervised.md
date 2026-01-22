@@ -3,8 +3,9 @@ title: "Installing Home Assistant in Supervised Mode"
 description: "Learn how to install Home Assistant in Supervised Mode on an unsupported OS like Ubuntu."
 pubDate: 2024-11-14T16:38:36+02:00
 author: "DimonB"
+image: "/posts/homeassistant-supervised/banner.webp"
 
-category: "Technology"
+category: "Home Assistant"
 featured: false
 tags:
   - homeassistant

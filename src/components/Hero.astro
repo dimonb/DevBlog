@@ -26,28 +26,20 @@ const latestPost = allPosts.sort(
     <div
         class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
     >
-        <div
-            class="inline-flex items-center px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wide mb-6"
-        >
-            <span class="w-2 h-2 rounded-full bg-primary mr-2 animate-pulse"
-            ></span>
-            Latest Release v2.4
-        </div>
-
         <h1
             class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-6"
         >
-            Decoding the <span
+            <span
                 class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-200"
-                >Future of Tech</span
             >
+                {latestPost?.data.title}
+            </span>
         </h1>
 
         <p
             class="mt-4 max-w-2xl mx-auto text-xl text-slate-600 dark:text-slate-400"
         >
-            Deep dives into modern software architecture, ethical hacking, and
-            the next generation of artificial intelligence.
+            {latestPost?.data.description}
         </p>
 
         <div class="mt-10 flex justify-center gap-4">

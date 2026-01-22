@@ -4,7 +4,8 @@ description: "Quick fix for the CairoSVG dependency error when running ESPHome i
 pubDate: 2025-02-21T12:00:00+02:00
 author: "DimonB"
 
-category: "Technology"
+category: "ESPHome & DIY"
+image: "/posts/esphome-cairosvg/banner.webp"
 
 featured: false
 tags:

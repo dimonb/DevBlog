@@ -1,5 +1,8 @@
 ---
+import { getCollection } from "astro:content";
 
+const allPosts = await getCollection("posts");
+const categories = [...new Set(allPosts.map((post) => post.data.category))];
 ---
 
 <footer
@@ -27,21 +30,47 @@
                     </div>
                     <span
                         class="font-display font-bold text-xl uppercase tracking-tighter text-slate-900 dark:text-white"
-                        >Dev<span class="text-primary">Blog</span></span
+                        >Dimon<span class="text-primary">Blog</span></span
                     >
                 </a>
                 <p class="text-slate-500 text-sm mb-6 leading-relaxed">
-                    Empowering the next generation of tech leaders with
-                    cutting-edge insights and tutorials.
+                    Practical guides and insights for Home Assistant, Zigbee,
+                    ESPHome, and DIY smart home automation.
                 </p>
                 <div class="flex space-x-4">
                     <a
                         class="text-slate-400 hover:text-primary transition-colors"
-                        href="#"><span class="material-icons">rss_feed</span></a
+                        href="https://github.com/dimonb"
+                        target="_blank"
+                        aria-label="Github"
+                        ><span class="text-xl font-bold">Gh</span></a
                     >
                     <a
                         class="text-slate-400 hover:text-primary transition-colors"
-                        href="#"><span class="material-icons">email</span></a
+                        href="https://t.me/dimonb"
+                        target="_blank"
+                        aria-label="Telegram"
+                        ><span class="text-xl font-bold">Tg</span></a
+                    >
+                    <a
+                        class="text-slate-400 hover:text-primary transition-colors"
+                        href="https://twitter.com/dimonb"
+                        target="_blank"
+                        aria-label="Twitter"
+                        ><span class="text-xl font-bold">X</span></a
+                    >
+                    <a
+                        class="text-slate-400 hover:text-primary transition-colors"
+                        href="https://linkedin.com/in/dimonb"
+                        target="_blank"
+                        aria-label="LinkedIn"
+                        ><span class="text-xl font-bold">In</span></a
+                    >
+                    <a
+                        class="text-slate-400 hover:text-primary transition-colors"
+                        href="mailto:blog@dimonb.com"
+                        aria-label="Email"
+                        ><span class="material-icons">email</span></a
                     >
                 </div>
             </div>
@@ -53,37 +82,18 @@
                 <ul
                     class="space-y-2 text-sm text-slate-500 dark:text-slate-400"
                 >
-                    <li>
-                        <a
-                            class="hover:text-primary transition-colors"
-                            href="/archive?topic=Programming">Programming</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            class="hover:text-primary transition-colors"
-                            href="/archive?topic=Cybersecurity">Cybersecurity</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            class="hover:text-primary transition-colors"
-                            href="/archive?topic=Data Science">Data Science</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            class="hover:text-primary transition-colors"
-                            href="/archive?topic=AI %26 ML"
-                            >AI & Machine Learning</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            class="hover:text-primary transition-colors"
-                            href="/archive?topic=DevOps">DevOps</a
-                        >
-                    </li>
+                    {
+                        categories.map((category) => (
+                            <li>
+                                <a
+                                    class="hover:text-primary transition-colors"
+                                    href={`/archive?topic=${encodeURIComponent(category)}`}
+                                >
+                                    {category}
+                                </a>
+                            </li>
+                        ))
+                    }
                 </ul>
             </div>
         </div>

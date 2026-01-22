@@ -3,8 +3,9 @@ title: "Which Smart Home Controller to Choose: My Setup"
 description: "People often ask what to build a smart home on. Here’s why I use a Raspberry Pi 4 with Zigbee2MQTT and why I avoid Wi‑Fi devices."
 pubDate: 2025-11-02T12:00:00+02:00
 author: "DimonB"
+image: "/posts/choose-smart-home-controller/banner.webp"
 
-category: "Technology"
+category: "Smart Home"
 
 featured: false
 tags:

@@ -3,8 +3,8 @@ title: "Garmin and Home Assistant Integration"
 description: "Integrating Garmin watches with Home Assistant for smart home control."
 pubDate: 2024-12-18T11:44:22+02:00
 author: "DimonB"
-image: "/posts/homeassistant-garmin/hass_menu0.jpg"
-category: "Technology"
+image: "/posts/homeassistant-garmin/banner.webp"
+category: "Home Assistant"
 
 featured: false
 tags:
@@ -98,5 +98,5 @@ The configuration defines the menu structure in the Garmin app. Each menu item c
 #### Results
 
 Here are a few photos of the final setup on the watch. Happy automating!
-![App](/posts/homeassistant-garmin/hass_menu0.jpg)
-![Menu](/posts/homeassistant-garmin/hass_menu1.jpg)
+![App](/posts/homeassistant-garmin/hass_menu0.webp)
+![Menu](/posts/homeassistant-garmin/hass_menu1.webp)

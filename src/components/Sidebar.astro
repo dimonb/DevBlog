@@ -4,43 +4,67 @@ import { getCollection } from "astro:content";
 const allPosts = await getCollection("posts");
 const allTags = allPosts.flatMap((post) => post.data.tags || []);
 const uniqueTags = [...new Set(allTags)];
-// Sort by frequency (simple version: show top 8)
 const trendingTags = uniqueTags.slice(0, 8);
+const popularSlugs = [
+    "homeassistant-garmin",
+    "homeassistant-supervised",
+    "curtain-control",
+    "esphome-cairosvg",
+    "zigbee-on-level",
+    "esp8266-vl53l1x",
+];
+const popularPosts = popularSlugs
+    .map((slug) => allPosts.find((p) => p.slug === slug))
+    .filter((p): p is NonNullable<typeof p> => !!p);
 ---
 
 <aside class="lg:w-1/3 space-y-8">
-    <!-- About DevBlog -->
+    <!-- About DimonBlog -->
     <div
         class="bg-card-light dark:bg-card-dark rounded-xl p-6 border border-slate-200 dark:border-white/5 shadow-sm"
     >
         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
-            About DevBlog
+            About DimonBlog
         </h3>
         <p
             class="text-slate-600 dark:text-slate-400 text-sm mb-4 leading-relaxed"
         >
-            DevBlog is a community-driven platform for developers, data
+            DimonBlog is a community-driven platform for developers, data
             scientists, and security experts. We share high-quality technical
             content to help you stay ahead.
         </p>
         <div class="flex gap-3">
             <a
                 class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-colors"
-                href="#"
+                href="https://twitter.com/dimonb"
+                target="_blank"
+                aria-label="Twitter"
             >
                 <span class="text-xs font-bold">X</span>
             </a>
             <a
                 class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-colors"
-                href="#"
+                href="https://github.com/dimonb"
+                target="_blank"
+                aria-label="GitHub"
             >
                 <span class="text-xs font-bold">Gh</span>
             </a>
             <a
                 class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-colors"
-                href="#"
+                href="https://linkedin.com/in/dimonb"
+                target="_blank"
+                aria-label="LinkedIn"
             >
                 <span class="text-xs font-bold">In</span>
+            </a>
+            <a
+                class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary hover:text-white transition-colors"
+                href="https://t.me/dimonb"
+                target="_blank"
+                aria-label="Telegram"
+            >
+                <span class="text-xs font-bold">Tg</span>
             </a>
         </div>
     </div>
@@ -103,30 +127,17 @@ const trendingTags = uniqueTags.slice(0, 8);
         </h3>
         <div class="space-y-4">
             {
-                [
-                    {
-                        category: "Programming",
-                        title: "10 CSS Tricks You Wish You Knew Sooner",
-                    },
-                    {
-                        category: "Career",
-                        title: "How to Negotiate Your Salary as a Senior Engineer",
-                    },
-                    {
-                        category: "AI",
-                        title: "Building a Chatbot with OpenAI API in 15 Minutes",
-                    },
-                ].map((item, index) => (
+                popularPosts.map((post, index) => (
                     <>
-                        <a class="group block" href="#">
+                        <a class="group block" href={`/posts/${post.slug}`}>
                             <span class="text-primary text-xs font-bold uppercase mb-1 block">
-                                {item.category}
+                                {post.data.category}
                             </span>
                             <h4 class="text-sm font-semibold text-slate-800 dark:text-slate-200 group-hover:text-primary transition-colors">
-                                {item.title}
+                                {post.data.title}
                             </h4>
                         </a>
-                        {index < 2 && (
+                        {index < popularPosts.length - 1 && (
                             <div class="h-px bg-slate-100 dark:bg-slate-800" />
                         )}
                     </>

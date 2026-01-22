@@ -3,8 +3,9 @@ title: "Localtuya templating problem fix"
 description: "Learn how to manage smart home infrared controllers locally with LocalTuya for full offline control. Discover how I fixed a Home Assistant template issue for seamless integration."
 pubDate: 2024-11-20T08:47:13+01:00
 author: "DimonB"
+image: "/posts/localtuya-templating/banner.webp"
 
-category: "Technology"
+category: "Home Assistant"
 featured: false
 tags:
   - homeassistant

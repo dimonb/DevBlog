@@ -3,8 +3,8 @@ title: "Automating Blinds with Zigbee and Home Assistant"
 description: "Automate blinds with Zigbee and Home Assistant! Learn how I integrated my blinds using a Zigbee relay switch, precise timed controls, and custom automations without sensors."
 pubDate: 2024-11-09T16:38:06+02:00
 author: "DimonB"
-image: "/posts/curtain-control/blinds-control-panel.png"
-category: "Technology"
+image: "/posts/curtain-control/banner.webp"
+category: "Home Assistant"
 featured: false
 tags:
   - homeassistant
@@ -310,6 +310,6 @@ mode: single
 
 With these automations, scripts, and configurations, I now have a comprehensive control system for managing my blinds. The system allows me to open, close, or adjust the blinds to a specific percentage with ease. Moreover, this setup is seamlessly integrated with Apple HomeKit, allowing me to control the blinds through voice commands or directly from my phone. The timed approach for estimating the position works surprisingly well, providing a simple yet effective solution without the need for additional sensors.
 
-![Blinds Control Panel](/posts/curtain-control/blinds-control-panel.png)
+![Blinds Control Panel](/posts/curtain-control/blinds-control-panel.webp)
 
 It all comes together beautifully, creating a smart home experience that feels almost magical!

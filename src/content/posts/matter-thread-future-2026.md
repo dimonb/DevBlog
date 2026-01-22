@@ -3,8 +3,9 @@ title: "The Future of Matter and Thread: 2026 Outlook"
 description: "Matter and Thread were supposed to fix the smart home mess. Here is where we stand in 2026 and why the \"USB-C for smart homes\" is finally becoming a reality."
 pubDate: 2026-01-11T12:00:00+02:00
 author: "DimonB"
+image: "/posts/matter-thread-future-2026/banner.webp"
 
-category: "Technology"
+category: "Smart Home"
 featured: false
 tags:
   - matter

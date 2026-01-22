@@ -37,10 +37,30 @@ const {
 			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
 			rel="stylesheet"
 		/>
-	</head>
-	<body
-		class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 transition-colors duration-300 font-display min-h-screen flex flex-col"
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-B0569BXV3Z"
+		></script></head
 	>
-		<slot />
-	</body>
+	<!-- Google Analytics -->
+
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag("js", new Date());
+
+		gtag("config", "G-B0569BXV3Z");
+	</script>
+
+	<!-- Plausible Analytics -->
+	<script
+		defer
+		data-domain="dimonb.com"
+		data-api="https://pl.dimonb.com/api/event"
+		src="https://pl.dimonb.com/js/script.js"></script>
 </html>
+<body
+	class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 transition-colors duration-300 font-display min-h-screen flex flex-col"
+>
+	<slot />
+</body>
