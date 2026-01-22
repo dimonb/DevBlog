@@ -3,6 +3,7 @@ title: "Zigbee turn on Level"
 description: "Learn how to configure Zigbee lights to remember their previous brightness level when turned on. A simple MQTT setup ensures consistent lighting preferences in your smart home."
 pubDate: 2024-11-09T15:33:16+02:00
 author: "DimonB"
+image: "/posts/zigbee-on-level/banner.webp"
 
 category: "Zigbee & Networks"
 
