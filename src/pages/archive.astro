@@ -6,7 +6,9 @@ import Footer from "../components/Footer.astro";
 import ArchiveCard from "../components/ArchiveCard.astro";
 import { calculateReadingTime } from "../utils/readingTime";
 
-const allPosts = await getCollection("posts");
+const allPosts = (await getCollection("posts")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 const topics = [...new Set(allPosts.map((post) => post.data.category))];
 
 const formatDate = (date: Date) => {
@@ -168,9 +170,10 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
 <script>
     const topicButtons = document.querySelectorAll(".topic-filter");
     const archiveGrid = document.getElementById("archive-grid");
-    const archiveItems = document.querySelectorAll(
-        ".archive-item",
-    ) as NodeListOf<HTMLElement>;
+    // Use an array instead of NodeList so we can reorder it
+    let allPostsElements = Array.from(
+        document.querySelectorAll(".archive-item"),
+    ) as HTMLElement[];
     const sortToggle = document.getElementById("sort-toggle");
     const sortLabel = document.getElementById("sort-label");
 
@@ -193,7 +196,7 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
     const itemsPerPage = 6;
 
     // Filtered items based on topic and tag
-    let filteredItems: HTMLElement[] = Array.from(archiveItems);
+    let filteredItems: HTMLElement[] = [...allPostsElements];
 
     const updateUrl = () => {
         const params = new URLSearchParams();
@@ -255,8 +258,10 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
                 window.scrollTo(0, 0);
             }
 
-            archiveItems.forEach((item) => (item.style.display = "none"));
+            // Hide all initially
+            allPostsElements.forEach((item) => (item.style.display = "none"));
 
+            // Show only relevant ones
             filteredItems.forEach((item, index) => {
                 if (index >= start && index < end) {
                     item.style.display = "block";
@@ -299,7 +304,7 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
         });
 
         // Filter items
-        filteredItems = Array.from(archiveItems).filter((item) => {
+        filteredItems = allPostsElements.filter((item) => {
             const matchesTopic =
                 topic === "all" || item.getAttribute("data-topic") === topic;
 
@@ -355,15 +360,18 @@ const progressPercentage = (currentArticlesCount / totalArticlesCount) * 100;
             sortLabel.textContent =
                 currentSort.charAt(0).toUpperCase() + currentSort.slice(1);
 
-        const sortedItems = Array.from(archiveItems).sort((a, b) => {
+        // Sort the master list directly
+        allPostsElements.sort((a, b) => {
             const dateA = parseInt(a.getAttribute("data-date") || "0");
             const dateB = parseInt(b.getAttribute("data-date") || "0");
             return currentSort === "newest" ? dateB - dateA : dateA - dateB;
         });
 
-        // Update items in the DOM and re-filter
-        sortedItems.forEach((item) => archiveGrid?.appendChild(item));
-        applyFilter(currentTopic, currentTag, false, true); // Keep page, animate sort
+        // Re-append nodes to ensure visual order matches array order
+        allPostsElements.forEach((item) => archiveGrid?.appendChild(item));
+
+        // Re-apply filter to update pagination logic with new order
+        applyFilter(currentTopic, currentTag, false, true);
     });
 </script>
 

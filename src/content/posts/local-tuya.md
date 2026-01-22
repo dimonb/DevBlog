@@ -3,7 +3,7 @@ title: "Homeassistant и Tuyalocal"
 description: "Discover how I built a Zigbee-based smart home with Home Assistant and tackled Tuya cloud limitations. Learn about my experience with LocalTuya and creating a custom patch for better device integration."
 pubDate: 2024-11-05T22:17:46+02:00
 author: "DimonB"
-image: "/posts/local-tuya/device-map.webp"
+image: "/posts/local-tuya/banner.webp"
 category: "Zigbee & Networks"
 
 featured: false
