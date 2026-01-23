@@ -1,0 +1,226 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const cryptocurrencies = [
+  {
+    name: "Bitcoin",
+    symbol: "BTC",
+    address: "bc1pznftpaduh87qpdahae30fr9574rn3h6vjllfvw6snsgs0laphs0qn287uw",
+    network: "",
+  },
+  {
+    name: "Ethereum",
+    symbol: "ETH",
+    address: "0x752Cb298e59edd7B1477BFA34e92f42414BdD10A",
+    network: "",
+  },
+  {
+    name: "Tether",
+    symbol: "USDT",
+    address: "0x752Cb298e59edd7B1477BFA34e92f42414BdD10A",
+    network: "ERC-20",
+  },
+  {
+    name: "Tether",
+    symbol: "USDT",
+    address: "TRGt9ABKAAAFnJKHDPDouy4CCYzgiCv4AP",
+    network: "TRC-20",
+  },
+  {
+    name: "USD Coin",
+    symbol: "USDC",
+    address: "0x752Cb298e59edd7B1477BFA34e92f42414BdD10A",
+    network: "ERC-20",
+  },
+  {
+    name: "USD Coin",
+    symbol: "USDC",
+    address: "0x752Cb298e59edd7B1477BFA34e92f42414BdD10A",
+    network: "MATIC polygon POS",
+  },
+  {
+    name: "Solana",
+    symbol: "SOL",
+    address: "7Lr7EVxLH7WJnwzd5Z6Ktd5D6yUJfyHRuyMLELCCk8zp",
+    network: "",
+  },
+  {
+    name: "Litecoin",
+    symbol: "LTC",
+    address: "MUQe1fCq6SezgznYKPzyJHt3SrByb6B4if",
+    network: "",
+  },
+];
+
+const paypalUrl = "https://www.paypal.com/paypalme/dimonbis";
+const buymeacoffeeUrl = "https://buymeacoffee.com/dimonb3";
+---
+
+<Layout title="Help this project | DevBlog">
+  <Header />
+
+  <main class="relative flex min-h-screen flex-col">
+    <div class="w-full max-w-7xl mx-auto flex-1 px-4 sm:px-6 lg:px-8 py-12">
+      <div class="max-w-3xl mx-auto">
+        <header class="text-center mb-16">
+          <h1
+            class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 font-display"
+          >
+            Help this <span class="text-primary">Project</span>
+          </h1>
+          <p
+            class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
+          >
+            Your support helps keep this blog running, funds new hardware for
+            experiments, and keeps the content accessible for everyone.
+          </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+          {
+            cryptocurrencies.map((crypto, index) => (
+              <div class="group flex flex-col bg-card-light dark:bg-card-dark rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 dark:border-white/5 hover:border-primary/50 relative">
+                <div class="p-6 flex flex-col flex-grow relative z-10">
+                  <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                      {crypto.name}
+                    </h3>
+                    <span class="px-2 py-1 rounded-md bg-black/5 dark:bg-white/5 text-slate-500 dark:text-slate-400 text-xs font-bold border border-slate-200 dark:border-white/10 uppercase tracking-wider">
+                      {crypto.symbol}
+                    </span>
+                  </div>
+
+                  <div class="space-y-5">
+                    <div>
+                      <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                          <span class="material-icons text-[14px]">
+                            account_balance_wallet
+                          </span>
+                          Address
+                        </span>
+                        {crypto.network && (
+                          <span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded uppercase tracking-wider">
+                            {crypto.network}
+                          </span>
+                        )}
+                      </div>
+                      <code class="block bg-slate-50 dark:bg-black/30 text-slate-600 dark:text-slate-300 p-3 rounded-lg border border-slate-200 dark:border-white/5 font-mono text-xs break-all shadow-inner">
+                        {crypto.address}
+                      </code>
+                    </div>
+
+                    <button
+                      class="copy-btn w-full py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-all duration-200 text-sm font-bold flex items-center justify-center gap-2 group-hover:bg-primary/5"
+                      data-address={crypto.address}
+                      aria-label={`Copy ${crypto.name} address`}
+                    >
+                      <span class="material-icons text-sm">content_copy</span>
+                      Copy Address
+                    </button>
+
+                    <div class="flex justify-center p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                      <div
+                        class="qr-code"
+                        id={`qr-${index}`}
+                        data-address={crypto.address}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Background Gradient Effect */}
+                <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="relative py-8 mb-8">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-slate-200 dark:border-white/10">
+            </div>
+          </div>
+          <div class="relative flex justify-center">
+            <span
+              class="bg-background-light dark:bg-background-dark px-4 text-sm font-bold text-slate-400 uppercase tracking-widest"
+              >Or support via</span
+            >
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto">
+          <a
+            href={paypalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center gap-3 bg-gradient-to-br from-[#0070ba] to-[#1546a0] hover:from-[#0079c1] hover:to-[#1a52b5] text-white py-3.5 px-6 rounded-xl font-bold transition-all transform hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(0,112,186,0.3)] hover:shadow-[0_6px_20px_rgba(0,112,186,0.4)] group"
+          >
+            <svg
+              class="w-6 h-6 fill-current group-hover:scale-110 transition-transform"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20.067 8.478c.492.88.556 2.014.3 3.327-.74 3.806-3.276 5.12-6.514 5.12h-.5a.805.805 0 00-.794.683l-.04.22-.63 3.993-.032.17a.804.804 0 01-.794.683H7.72a.483.483 0 01-.477-.558L9.344 7.99c.072-.45.48-.78.938-.78h4.46c1.473 0 2.77.096 3.858.563.405.174.773.382 1.104.635.088.068.173.14.256.213.328.286.606.622.825 1.007.093.163.177.333.25.507.032.074.063.15.093.227.032.084.062.17.09.257z"
+              ></path>
+            </svg>
+            PayPal
+          </a>
+          <a
+            href={buymeacoffeeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center gap-3 bg-gradient-to-br from-[#FFDD00] to-[#FFC800] hover:from-[#FFE633] hover:to-[#FFD700] text-black py-3.5 px-6 rounded-xl font-bold transition-all transform hover:-translate-y-0.5 shadow-[0_4px_12px_rgba(255,221,0,0.3)] hover:shadow-[0_6px_20px_rgba(255,221,0,0.4)] group"
+          >
+            <svg
+              class="w-6 h-6 fill-current group-hover:scale-110 transition-transform"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20.216 6.415l-.132-.666c-.119-.598-.388-1.163-1.001-1.379-.197-.069-.42-.098-.57-.241-.152-.143-.196-.366-.231-.572-.065-.378-.125-.756-.192-1.133-.057-.325-.102-.69-.25-.987-.195-.4-.597-.634-.996-.788a5.723 5.723 0 00-.626-.194c-1-.263-2.05-.36-3.077-.416a25.834 25.834 0 00-3.7.062c-.915.083-1.88.184-2.75.5-.318.116-.646.256-.888.501-.297.302-.393.77-.177 1.146.154.267.415.456.692.58.36.162.737.284 1.123.366 1.075.238 2.189.331 3.287.37 1.218.05 2.437.01 3.65-.118.299-.033.598-.073.896-.119.352-.054.578-.513.474-.834-.124-.383-.457-.531-.834-.473-.466.074-.96.108-1.382.146-1.177.08-2.358.082-3.536.006a22.228 22.228 0 01-1.157-.107c-.086-.01-.18-.025-.258-.036-.243-.036-.484-.08-.724-.13-.111-.027-.111-.185 0-.212h.005c.277-.06.557-.108.838-.147h.002c.131-.009.263-.032.394-.048a25.076 25.076 0 013.426-.12c.674.019 1.347.067 2.017.144l.228.031c.267.04.533.088.798.145.392.085.895.113 1.07.542.055.137.08.288.111.431l.319 1.484a.237.237 0 01-.199.284h-.003c-.037.006-.075.01-.112.015a36.704 36.704 0 01-4.743.295 37.059 37.059 0 01-4.699-.304c-.14-.017-.293-.042-.417-.06-.326-.048-.649-.108-.973-.161-.393-.065-.768-.032-1.123.161-.29.16-.527.404-.675.701-.154.316-.199.66-.267 1-.069.34-.176.707-.135 1.056.087.753.613 1.365 1.37 1.502a39.69 39.69 0 0011.343.376.483.483 0 01.535.53l-.071.697-1.018 9.907c-.041.41-.047.832-.125 1.237-.122.637-.553 1.028-1.182 1.171-.577.131-1.165.2-1.756.205-.656.004-1.31-.025-1.966-.022-.699.004-1.556-.06-2.095-.58-.475-.458-.54-1.174-.605-1.793l-.731-7.013-.322-3.094c-.037-.351-.286-.695-.678-.678-.336.015-.718.3-.678.679l.228 2.185.949 9.112c.147 1.344 1.174 2.068 2.446 2.272.742.12 1.503.144 2.257.156.966.016 1.942.053 2.892-.122 1.408-.258 2.465-1.198 2.616-2.657.34-3.332.683-6.663 1.024-9.995l.215-2.087a.484.484 0 01.39-.426c.402-.078.787-.212 1.074-.518.455-.488.546-1.124.385-1.766zm-1.478.772c-.145.137-.363.201-.578.233-2.416.359-4.866.54-7.308.46-1.748-.058-3.477-.254-5.207-.498-.17-.024-.353-.055-.47-.18-.22-.236-.111-.71-.054-.995.052-.26.152-.609.463-.646.484-.057 1.046.148 1.526.22.577.088 1.156.18 1.736.25 2.391.282 4.805.332 7.196.166.191-.013.382-.03.573-.049.082-.008.165-.018.247-.027.04-.005.082-.01.123-.015.131-.015.263-.032.394-.048.23-.027.59-.065.593.319z"
+              ></path>
+            </svg>
+            Buy Me a Coffee
+          </a>
+        </div>
+
+        <div
+          id="toast-notification"
+          class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-3 rounded-xl font-bold shadow-xl flex items-center gap-3 transition-all duration-300 z-50 translate-y-20 opacity-0"
+        >
+          <span class="material-icons">check_circle</span>
+          <span>Address copied!</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    #toast-notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .copy-btn.copied {
+      background-color: #22c55e; /* green-500 */
+      border-color: #22c55e;
+      color: white;
+    }
+
+    .copy-btn.copied:hover {
+      background-color: #16a34a; /* green-600 */
+      border-color: #16a34a;
+    }
+  </style>
+
+  <script src="/js/qrcode.min.js" is:inline></script>
+  <script src="/js/donate.js" is:inline></script>
+
+  <Footer />
+</Layout>

@@ -5,6 +5,7 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PostSidebarLeft from "../../components/PostSidebarLeft.astro";
 import PostSidebarRight from "../../components/PostSidebarRight.astro";
+import Remark42 from "../../components/Remark42.astro";
 import { calculateReadingTime } from "../../utils/readingTime";
 
 export async function getStaticPaths() {
@@ -243,6 +244,8 @@ const formatDate = (date: Date) => {
                         </div>
                     </div>
                 </article>
+
+                <Remark42 />
 
                 <!-- Right Sidebar -->
                 <PostSidebarRight
